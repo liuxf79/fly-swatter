@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <!-- <link rel="stylesheet" href="/stylesheets/style.css" /> -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .table-container {
+        width: 750px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .table-detail {
+        border-radius: 18px;
+        overflow: hidden;
+        width: 690px;
+        display: flex;
+        flex-direction: column;
+      }
+      .table-title {
+        font-size: 32px;
+        color: #3a3a3a;
+        font-family: "PingFangSC-Medium";
+        margin: 20px auto;
+      }
+      .line-wrapper {
+        width: 690px;
+        display: flex;
+        flex-direction: row;
+      }
+      .line-header {
+        width: 190px;
+        flex-shrink: 0;
+        font-weight: 500;
+        font-size: 18px;
+        text-align: center;
+        background: #f5f5f5;
+        border: 1px solid #fff;
+        padding: 15px 0;
+        font-family: "PingFangSC-Medium";
+        display: block;
+      }
+      .line-desc {
+        width: 500px;
+        flex: 1;
+        font-size: 18px;
+        font-weight: 500;
+        padding: 15px 0 15px 75px;
+        background: #fbfbfb;
+        text-align: left;
+        border: 1px solid #fff;
+        font-family: "PingFangSC-Regular";
+        display: block;
+      }
+      .bottom {
+        width: 100%;
+        height: 65px;
+        padding: 10px 0;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 400;
+      }
+    </style>
+    <script src="/javascripts/html2canvas.min.js"></script>
+    <script>
+      // document.documentElement.style.position = "fixed";
+      function capture() {
+        html2canvas(document.querySelector(".table-container"), {
+          useCORS: true,
+          scale: 1,
+        }).then((canvas) => {
+          let url = canvas.toDataURL();
+          let details = document.createElement("details");
+          details.innerHTML = url;
+          document.body.appendChild(canvas)
+          document.body.appendChild(details);
+        });
+      }
+      window.onload = function () {
+        capture();
+      };
+    </script>
+  </head>
+  <body>
+    <div class="table-container">
+      <div class="table-title">表格标题</div>
+      <div class="table-detail">
+        <% detail.forEach(item=>{%>
+        <div class="line-wrapper">
+          <div class="line-header"><%= item.title %></div>
+          <div class="line-desc"><%= item.text %></div>
+        </div>
+        <%})%>
+      </div>
+      <div class="bottom">表格说明：请自行调整html及样式</div>
+    </div>
+  </body>
+</html>
